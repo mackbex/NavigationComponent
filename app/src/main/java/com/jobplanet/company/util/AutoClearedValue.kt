@@ -1,4 +1,4 @@
-package com.jobplanet.companies.util
+package com.jobplanet.company.util
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver

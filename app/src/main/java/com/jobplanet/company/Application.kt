@@ -1,4 +1,4 @@
-package com.jobplanet.companies
+package com.jobplanet.company
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

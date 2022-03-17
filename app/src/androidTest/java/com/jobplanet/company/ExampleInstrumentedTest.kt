@@ -1,4 +1,4 @@
-package com.jobplanet.companies
+package com.jobplanet.company
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

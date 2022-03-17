@@ -1,4 +1,4 @@
-package com.jobplanet.companies.ui.company.search
+package com.jobplanet.company.ui.company.search
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

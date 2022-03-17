@@ -1,4 +1,4 @@
-package com.jobplanet.companies
+package com.jobplanet.company
 
 import org.junit.Test
 
