@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CompanySearch</string>
+    <string name="title_search_fragment">Search</string>
 </resources>

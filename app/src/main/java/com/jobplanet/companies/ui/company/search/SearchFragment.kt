@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.jobplanet.companies.databinding.FragmentCompaniesSearchBinding
+import com.jobplanet.companies.util.autoCleared
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
 
-    private var _binding: FragmentCompaniesSearchBinding? = null
-    private val binding get() = _binding!!
+    private var binding by autoCleared<FragmentCompaniesSearchBinding>()
 
     private val searchViewModel: SearchViewModel by viewModels()
 
@@ -23,13 +23,10 @@ class SearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCompaniesSearchBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        binding = FragmentCompaniesSearchBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+
+
 }
