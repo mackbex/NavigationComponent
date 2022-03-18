@@ -20,8 +20,4 @@
         android:name="com.jobplanet.company.ui.company.detail.DetailFragment"
         android:label="DetailFragment"
         tools:layout="@layout/fragment_company_detail" />
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.jobplanet.company.MainActivity"
-        android:label="MainActivity" />
 </navigation>

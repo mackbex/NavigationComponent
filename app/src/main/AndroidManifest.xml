@@ -12,7 +12,8 @@
         android:theme="@style/Theme.CompanySearch">
         <activity
             android:name="com.jobplanet.company.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.CompanySearch.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

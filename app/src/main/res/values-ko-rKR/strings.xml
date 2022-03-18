@@ -3,4 +3,5 @@
     <string name="app_name">CompanySearch</string>
     <string name="title_search">검색</string>
     <string name="title_detail">상세</string>
+    <string name="appbar_action_search">검색</string>
 </resources>
