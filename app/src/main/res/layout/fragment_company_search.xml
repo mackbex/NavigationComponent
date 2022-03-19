@@ -2,6 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.jobplanet.company.domain.model.SearchResult"/>
+        <import type="com.jobplanet.company.data.source.remote.Resource"/>
+        <variable
+            name="viewModel"
+            type="com.jobplanet.company.ui.company.search.SearchViewModel" />
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,11 +25,12 @@
                 style="@style/Widget.MaterialComponents.ActionBar.Primary"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:elevation="0dp"
+                app:titleTextColor="?attr/colorOnSurface"
                 app:layout_collapseMode="pin"
-                app:layout_collapseParallaxMultiplier="0"
+                app:contentInsetStartWithNavigation="0dp"
                 app:menu="@menu/menu_company_search"
                 app:title="@string/appbar_action_search" />
+
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,24 +38,30 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <TextView
-                android:id="@+id/test"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/title_search"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/search"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rc_search_result"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingEnd="@dimen/list_item_cell_margin"
+                android:paddingStart="@dimen/list_item_cell_margin"
+                app:items="@{viewModel.companyListState}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:visibility="@{viewModel.companyListState instanceof Resource.Success ? View.VISIBLE : View.GONE}"
+                />
+
+            <ProgressBar
+                android:id="@+id/progress_loading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/test" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:indeterminate="true"
+
+                android:visibility="@{viewModel.companyListState instanceof Resource.Success ? View.GONE : View.VISIBLE}"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

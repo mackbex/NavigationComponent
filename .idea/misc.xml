@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/CompanySearch/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2195" />
         <entry key="..\:/Android/CompanySearch/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.1385" />
         <entry key="..\:/Android/CompanySearch/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.264" />
         <entry key="..\:/Android/CompanySearch/app/src/main/res/layout/activity_main.xml" value="0.18" />
@@ -11,6 +12,9 @@
         <entry key="..\:/Android/CompanySearch/app/src/main/res/layout/fragment_companies_search.xml" value="0.1" />
         <entry key="..\:/Android/CompanySearch/app/src/main/res/layout/fragment_company_detail.xml" value="0.20697463768115942" />
         <entry key="..\:/Android/CompanySearch/app/src/main/res/layout/fragment_company_search.xml" value="0.22922998986828774" />
+        <entry key="..\:/Android/CompanySearch/app/src/main/res/layout/item_company.xml" value="0.28802083333333334" />
+        <entry key="..\:/Android/CompanySearch/app/src/main/res/layout/item_horizontal_theme.xml" value="0.23324275362318841" />
+        <entry key="..\:/Android/CompanySearch/app/src/main/res/layout/item_review.xml" value="0.23324275362318841" />
         <entry key="..\:/Android/CompanySearch/app/src/main/res/menu/detail.xml" value="0.2671875" />
         <entry key="..\:/Android/CompanySearch/app/src/main/res/menu/main.xml" value="0.4625" />
         <entry key="..\:/Android/mpanySearch/app/src/main/res/layout/activity_main.xml" value="0.24003623188405798" />

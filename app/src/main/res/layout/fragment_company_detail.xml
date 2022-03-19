@@ -4,7 +4,8 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -16,9 +17,9 @@
                 style="@style/Widget.MaterialComponents.ActionBar.Primary"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:elevation="0dp"
+                app:titleTextColor="?attr/colorOnSurface"
                 app:layout_collapseMode="pin"
-                app:layout_collapseParallaxMultiplier="0"
+                app:contentInsetStartWithNavigation="0dp"
                 app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
                 app:menu="@menu/menu_company_detail"
                 app:title="@string/title_detail" />
@@ -27,6 +28,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:transitionName="shared_element_container"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <TextView
