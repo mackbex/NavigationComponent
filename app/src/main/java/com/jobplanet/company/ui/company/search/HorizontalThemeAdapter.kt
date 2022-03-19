@@ -1,9 +1,7 @@
 package com.jobplanet.company.ui.company.search
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
@@ -11,11 +9,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.jobplanet.company.R
-import com.jobplanet.company.databinding.ItemCompanyBinding
 import com.jobplanet.company.domain.model.*
 import java.lang.IllegalStateException
 
-class SearchResultAdapter : ListAdapter<Items, SearchResultAdapter.ViewHolder>(ItemDiffCallback()) {
+class HorizontalThemeAdapter : ListAdapter<Items, HorizontalThemeAdapter.ViewHolder>(ItemDiffCallback()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,7 +25,7 @@ class SearchResultAdapter : ListAdapter<Items, SearchResultAdapter.ViewHolder>(I
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position), holder.itemView)
+        holder.bind(getItem(position))
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -42,27 +39,13 @@ class SearchResultAdapter : ListAdapter<Items, SearchResultAdapter.ViewHolder>(I
 
     inner class ViewHolder(private val binding: ViewDataBinding):
         RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(item:Items, view: View) {
+        fun bind(item:Items) {
             binding.setVariable(BR.model, item)
-//            binding.setVariable(BR.clickListener, view)
-
-            when(item) {
-                is Company -> {
-                    view.setOnClickListener {
-                        Toast.makeText(view.context, item.name, Toast.LENGTH_SHORT).show()
-                    }
-                }
-                is Review -> {
-                    view.setOnClickListener {
-                        Toast.makeText(view.context, item.name, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-
             binding.executePendingBindings()
         }
     }
+
+
     private class ItemDiffCallback : DiffUtil.ItemCallback<Items>() {
 
         override fun areItemsTheSame(
@@ -80,4 +63,3 @@ class SearchResultAdapter : ListAdapter<Items, SearchResultAdapter.ViewHolder>(I
         }
     }
 }
-

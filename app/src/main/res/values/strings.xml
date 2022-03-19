@@ -4,4 +4,5 @@
     <string name="title_detail">Detail</string>
     <string name="appbar_action_search">Search</string>
     <string name="err_failed_load_data">Failed to load data.</string>
+    <string name="hint_input_company">Input company name</string>
 </resources>

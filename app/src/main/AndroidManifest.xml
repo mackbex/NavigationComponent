@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jobplanet.company">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name="com.jobplanet.company.Application"
         android:allowBackup="true"

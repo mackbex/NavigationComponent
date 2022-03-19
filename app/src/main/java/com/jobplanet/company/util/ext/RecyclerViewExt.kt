@@ -11,7 +11,7 @@ import com.jobplanet.company.ui.company.search.SearchResultAdapter
 
 
 @BindingAdapter("items")
-fun bindItemViewModels(recyclerView: RecyclerView, items: Resource<SearchResult>?) {
+fun bindItems(recyclerView: RecyclerView, items: Resource<SearchResult>?) {
     val adapter = recyclerView.adapter as SearchResultAdapter
     when(items) {
         is Resource.Success -> {

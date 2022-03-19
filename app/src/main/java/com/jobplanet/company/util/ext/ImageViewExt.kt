@@ -1,8 +1,15 @@
 package com.jobplanet.company.util.ext
 
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.graphics.ColorFilter
+import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
-import androidx.annotation.DrawableRes
+import android.widget.ProgressBar
+import androidx.core.content.ContextCompat
+import androidx.databinding.BindingAdapter
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -12,11 +19,19 @@ import com.bumptech.glide.request.target.Target
 import com.jobplanet.company.R
 
 
-fun ImageView.load(imageUrl: String?, @DrawableRes placeHolder: Int? = null, endAction: (() -> Unit)? = null) {
-    Glide.with(context.applicationContext)
-        .load(imageUrl)
-        .placeholder(placeHolder ?: R.drawable.ic_launcher_foreground)
-        .apply(RequestOptions().override(this.width, this.height).fitCenter())
+@BindingAdapter("companyLogo")
+fun bindCompanyLogo(imageView: ImageView, logoPath:String?) {
+
+    val circularProgressDrawable = CircularProgressDrawable(imageView.context).apply {
+        strokeWidth = 5f
+        centerRadius = 30f
+    }
+    circularProgressDrawable.start()
+
+    Glide.with(imageView.context)
+        .load(logoPath)
+        .placeholder(circularProgressDrawable)
+        .error(R.drawable.logo_failed)
         .addListener(object : RequestListener<Drawable> {
             override fun onLoadFailed(
                 e: GlideException?,
@@ -24,7 +39,7 @@ fun ImageView.load(imageUrl: String?, @DrawableRes placeHolder: Int? = null, end
                 target: Target<Drawable>?,
                 isFirstResource: Boolean
             ): Boolean {
-                endAction?.invoke()
+                circularProgressDrawable.stop()
                 return false
             }
 
@@ -35,9 +50,10 @@ fun ImageView.load(imageUrl: String?, @DrawableRes placeHolder: Int? = null, end
                 dataSource: DataSource?,
                 isFirstResource: Boolean
             ): Boolean {
-                endAction?.invoke()
+                circularProgressDrawable.stop()
                 return false
             }
         })
-        .into(this)
+        .apply(RequestOptions().override(imageView.width, imageView.height).fitCenter())
+        .into(imageView)
 }

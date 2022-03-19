@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="list_item_cell_margin">26dp</dimen>
+    <dimen name="list_item_cell_margin">20dp</dimen>
+    <dimen name="list_item_rate_margin">6dp</dimen>
+    <dimen name="list_item_industry_margin">10dp</dimen>
 </resources>

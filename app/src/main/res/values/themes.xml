@@ -14,8 +14,11 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
 
         <!-- Customize your theme here. -->
+        <item name="android:textColorPrimary">@color/grey_800</item>
+        <item name="android:textColorSecondary">@color/grey_500</item>
     </style>
 
+    <style name="CompanySearch" parent="Theme.CompanySearch"/>
 
     <style name="Theme.CompanySearch.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -24,4 +27,12 @@
 
     <style name="Theme.CompanySearch.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.CompanySearch.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="imageview_logo_rounded_corner">
+        <item name="cornerSize">10dp</item>
+    </style>
+
+    <style name="Theme.CompanySearch.UnderLineView" parent="Theme.CompanySearch">
+        <item name="android:background">@color/grey_200</item>
+    </style>
 </resources>

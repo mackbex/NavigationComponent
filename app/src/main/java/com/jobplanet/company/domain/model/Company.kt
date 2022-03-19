@@ -21,5 +21,4 @@ data class Company(
     val type:String,
     val industry_name:String,
     val simple_desc:String,
-
 ):Items
