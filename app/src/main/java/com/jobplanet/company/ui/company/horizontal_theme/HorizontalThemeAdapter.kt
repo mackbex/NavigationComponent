@@ -2,21 +2,24 @@ package com.jobplanet.company.ui.company.horizontal_theme
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.jobplanet.company.R
-import com.jobplanet.company.databinding.ItemHorizontalThemeBinding
 import com.jobplanet.company.databinding.ItemHorizontalThemeCardviewBinding
 import com.jobplanet.company.domain.model.*
+
+
+/**
+ * SearchResult 뷰의 Horizontal cardview용 adapter
+ */
 
 class HorizontalThemeAdapter : ListAdapter<Theme, HorizontalThemeAdapter.ViewHolder>(
     ItemDiffCallback()
 ) {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(DataBindingUtil.inflate(
@@ -30,12 +33,11 @@ class HorizontalThemeAdapter : ListAdapter<Theme, HorizontalThemeAdapter.ViewHol
         holder.bind(getItem(position))
     }
 
-
     inner class ViewHolder(private val binding: ItemHorizontalThemeCardviewBinding):
         RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener { view ->
-                Toast.makeText(view.context, binding.model?.title, Toast.LENGTH_SHORT).show()
+                Snackbar.make(view, binding.model?.title ?: run { "" }, Snackbar.LENGTH_SHORT).show()
             }
         }
         fun bind(item:Theme) {
@@ -43,7 +45,6 @@ class HorizontalThemeAdapter : ListAdapter<Theme, HorizontalThemeAdapter.ViewHol
             binding.executePendingBindings()
         }
     }
-
 
     private class ItemDiffCallback : DiffUtil.ItemCallback<Theme>() {
 
@@ -58,7 +59,7 @@ class HorizontalThemeAdapter : ListAdapter<Theme, HorizontalThemeAdapter.ViewHol
             oldItem: Theme,
             newItem: Theme
         ): Boolean {
-            return oldItem.hashCode() == newItem.hashCode()
+            return oldItem.id == newItem.id
         }
     }
 }

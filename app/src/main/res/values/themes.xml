@@ -44,4 +44,11 @@
         <item name="android:textColor">@color/red_700</item>
         <item name="android:textSize">18sp</item>
     </style>
+
+    <style name="Theme.Layout.Detail.BG" parent="Theme.CompanySearch">
+        <item name="background">@color/grey_50</item>
+    </style>
+    <style name="Theme.Layout.Detail.Main" parent="Theme.CompanySearch">
+        <item name="background">@color/white</item>
+    </style>
 </resources>

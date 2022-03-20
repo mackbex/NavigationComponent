@@ -4,6 +4,9 @@ import android.os.Parcelable
 import com.jobplanet.company.R
 import kotlinx.parcelize.Parcelize
 
+/**
+ * Horizontal theme cell type 모델
+ */
 @Parcelize
 data class HorizontalTheme(
     override val cell_type: String,

@@ -33,20 +33,20 @@
                 app:menu="@menu/menu_review"
                 app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
                 app:title="@string/title_review"
-                app:titleTextColor="?attr/colorOnSurface" />
+                app:titleTextColor="?attr/colorOnPrimary" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/blue_grey_50"
+            android:theme="@style/Theme.Layout.Detail.BG"
             android:transitionName="shared_element_container"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:theme="@style/Theme.Layout.Detail.Main"
                 android:elevation="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

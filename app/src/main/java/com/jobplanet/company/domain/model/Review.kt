@@ -4,7 +4,9 @@ import android.os.Parcelable
 import com.jobplanet.company.R
 import kotlinx.parcelize.Parcelize
 
-
+/**
+ * Review cell type 모델
+ */
 @Parcelize
 data class Review(
     override val cell_type: String,

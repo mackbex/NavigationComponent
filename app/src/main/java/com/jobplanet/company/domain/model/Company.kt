@@ -1,10 +1,12 @@
 package com.jobplanet.company.domain.model
 
 import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
 import com.jobplanet.company.R
 import kotlinx.parcelize.Parcelize
 
+/**
+ * Company cell type 모델
+ */
 @Parcelize
 data class Company(
     override val cell_type: String,

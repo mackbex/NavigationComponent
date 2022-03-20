@@ -3,6 +3,10 @@ package com.jobplanet.company.di
 import com.google.gson.GsonBuilder
 import com.jobplanet.company.BuildConfig
 import com.jobplanet.company.data.source.remote.NetConstants
+import com.jobplanet.company.data.source.remote.NetConstants.CELL_TYPE_COMPANY
+import com.jobplanet.company.data.source.remote.NetConstants.CELL_TYPE_FIELD
+import com.jobplanet.company.data.source.remote.NetConstants.CELL_TYPE_HORIZONTAL_THEME
+import com.jobplanet.company.data.source.remote.NetConstants.CELL_TYPE_REVIEW
 import com.jobplanet.company.data.source.remote.service.CompanySearchService
 import com.jobplanet.company.domain.model.Company
 import com.jobplanet.company.domain.model.HorizontalTheme
@@ -46,15 +50,18 @@ object NetworkModule {
         return client.build()
     }
 
+    /**
+     * Gson을 통한 JSON 데이터 파싱. CELL_TYPE 구분을 위한 RuntimeTypeAdapterFactory 추가.
+     */
     @Provides
     @Singleton
     fun provideConverterFactory(): GsonConverterFactory {
 
         val adapter = RuntimeTypeAdapterFactory
-            .of(Items::class.java, "cell_type", true)
-            .registerSubtype(Company::class.java, "CELL_TYPE_COMPANY")
-            .registerSubtype(HorizontalTheme::class.java, "CELL_TYPE_HORIZONTAL_THEME")
-            .registerSubtype(Review::class.java, "CELL_TYPE_REVIEW")
+            .of(Items::class.java, CELL_TYPE_FIELD, true)
+            .registerSubtype(Company::class.java, CELL_TYPE_COMPANY)
+            .registerSubtype(HorizontalTheme::class.java, CELL_TYPE_HORIZONTAL_THEME)
+            .registerSubtype(Review::class.java, CELL_TYPE_REVIEW)
 
         return GsonConverterFactory.create(GsonBuilder().registerTypeAdapterFactory(adapter).create())
     }

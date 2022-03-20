@@ -1,8 +1,8 @@
 package com.jobplanet.company.util.ext
 
-import android.widget.Toast
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.jobplanet.company.R
 import com.jobplanet.company.util.Resource
 import com.jobplanet.company.domain.model.SearchResult
@@ -10,6 +10,10 @@ import com.jobplanet.company.domain.model.Theme
 import com.jobplanet.company.ui.company.horizontal_theme.HorizontalThemeAdapter
 import com.jobplanet.company.ui.company.search.SearchResultAdapter
 
+
+/**
+ * Recyclerview databinding Ext
+ */
 
 @BindingAdapter("items")
 fun bindItems(recyclerView: RecyclerView, items: Resource<SearchResult>?) {
@@ -19,7 +23,7 @@ fun bindItems(recyclerView: RecyclerView, items: Resource<SearchResult>?) {
             adapter.submitList(items.data.items)
         }
         is Resource.Failure -> {
-            Toast.makeText(recyclerView.context, recyclerView.context.getString(R.string.err_failed_load_data), Toast.LENGTH_SHORT).show()
+            Snackbar.make(recyclerView.rootView, recyclerView.context.getString(R.string.err_failed_load_data), Snackbar.LENGTH_SHORT).show()
         }
     }
 }

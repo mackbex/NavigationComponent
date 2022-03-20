@@ -22,12 +22,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+
+/**
+ * 메인 Fragment
+ */
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
 
     private var binding : FragmentCompanySearchBinding by autoCleared()
     private val viewModel: SearchViewModel by viewModels()
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,6 +42,10 @@ class SearchFragment : Fragment() {
             viewModel = this@SearchFragment.viewModel
             lifecycleOwner = viewLifecycleOwner
             rcSearchResult.adapter = SearchResultAdapter().apply {
+
+                /**
+                 * Item list 불러 온 후, 추가작업 (예 : 기업 상세 fragment로 이동 or Horizontal listview 어뎁터 설정 등) 담당
+                 */
                 setPostInterface { item, binding ->
                     when (item) {
                         is Company -> {
@@ -68,6 +75,9 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Appbar에 결과 내 재검색 기능 담당
+     */
     private fun setSearchFeature() {
         val searchView = binding.toolbar.menu.findItem(R.id.action_search).actionView as SearchView
         searchView.queryHint = getString(R.string.hint_input_company)
@@ -83,6 +93,9 @@ class SearchFragment : Fragment() {
         })
     }
 
+    /**
+     * State 구성
+     */
     private fun initStates() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {

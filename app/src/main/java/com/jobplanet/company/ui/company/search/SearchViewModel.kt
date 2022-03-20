@@ -9,8 +9,8 @@ import com.jobplanet.company.util.Resource
 import com.jobplanet.company.domain.model.SearchResult
 import com.jobplanet.company.domain.usecase.CompanyUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,15 +18,21 @@ class SearchViewModel @Inject constructor(
     private val companyUseCase: CompanyUseCase
 ) : ViewModel(){
 
+
     val companyListState = MutableStateFlow<Resource<SearchResult>>(Resource.Loading)
 
-
+    /**
+     * 기업정보 리스트 요청
+     */
     fun getSearchResult() {
         viewModelScope.launch {
             companyListState.value = companyUseCase.getSearchResult()
         }
     }
 
+    /**
+     * 결과 내 재검색
+     */
     fun filterCompanyList(text:String?):List<Items> {
         with(companyListState.value) {
             when(this) {

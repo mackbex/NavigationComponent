@@ -7,6 +7,9 @@ import java.lang.IllegalStateException
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
+/**
+ * Fragment의 ViewDataBinding 메모리 누수 방지를 위한 Delegate
+ */
 class AutoClearedValue<T : Any>(val fragment:Fragment) : ReadWriteProperty<Fragment, T> {
     private var _value: T? = null
 
