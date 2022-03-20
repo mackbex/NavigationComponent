@@ -2,8 +2,9 @@
 <resources>
     <string name="app_name">CompanySearch</string>
     <string name="title_search">검색</string>
-    <string name="title_detail">상세</string>
+    <string name="title_review">상세</string>
     <string name="appbar_action_search">검색</string>
     <string name="err_failed_load_data">데이터 로드에 실패했습니다.</string>
     <string name="hint_input_company">회사명을 입력하세요</string>
+    <string name="title_company">회사</string>
 </resources>

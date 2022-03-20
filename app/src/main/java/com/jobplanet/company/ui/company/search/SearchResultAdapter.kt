@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +17,7 @@ import com.jobplanet.company.domain.model.*
 import java.lang.IllegalStateException
 
 class SearchResultAdapter : ListAdapter<Items, SearchResultAdapter.ViewHolder>(ItemDiffCallback()) {
-
+    private var listener: ((item:Items) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding:ViewDataBinding = DataBindingUtil.inflate(
@@ -28,16 +29,15 @@ class SearchResultAdapter : ListAdapter<Items, SearchResultAdapter.ViewHolder>(I
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position), holder.itemView)
+        holder.bind(getItem(holder.bindingAdapterPosition), holder.itemView)
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when(currentList[position]) {
-            is Company -> R.layout.item_company
-            is Review -> R.layout.item_review
-            is HorizontalTheme -> R.layout.item_horizontal_theme
-            else -> throw IllegalStateException("No registered layout.")
-        }
+        return currentList[position].layout_id
+    }
+
+    fun setOnItemClickListener(listener: ((item:Items) -> Unit)?) {
+        this.listener = listener
     }
 
     inner class ViewHolder(private val binding: ViewDataBinding):
@@ -45,24 +45,14 @@ class SearchResultAdapter : ListAdapter<Items, SearchResultAdapter.ViewHolder>(I
 
         fun bind(item:Items, view: View) {
             binding.setVariable(BR.model, item)
-//            binding.setVariable(BR.clickListener, view)
-
-            when(item) {
-                is Company -> {
-                    view.setOnClickListener {
-                        Toast.makeText(view.context, item.name, Toast.LENGTH_SHORT).show()
-                    }
+                view.setOnClickListener {
+                    listener?.invoke(item)
                 }
-                is Review -> {
-                    view.setOnClickListener {
-                        Toast.makeText(view.context, item.name, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
 
             binding.executePendingBindings()
         }
     }
+
     private class ItemDiffCallback : DiffUtil.ItemCallback<Items>() {
 
         override fun areItemsTheSame(

@@ -1,21 +1,23 @@
-package com.jobplanet.company.ui.company.detail
+package com.jobplanet.company.ui.company.company
 
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.transition.MaterialContainerTransform
-import com.jobplanet.company.R
-import com.jobplanet.company.databinding.FragmentCompanyDetailBinding
+import com.jobplanet.company.databinding.FragmentCompanyBinding
+import com.jobplanet.company.domain.model.Company
 import com.jobplanet.company.util.autoCleared
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DetailFragment : Fragment() {
+class CompanyFragment : Fragment() {
 
-    private var binding: FragmentCompanyDetailBinding by autoCleared()
-    private val detailViewModel: DetailViewModel by viewModels()
+    private var binding: FragmentCompanyBinding by autoCleared()
+    private val detailViewModel: CompanyViewModel by viewModels()
+    val args: CompanyFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,13 +29,14 @@ class DetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCompanyDetailBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
+        binding = FragmentCompanyBinding.inflate(inflater, container, false)
+        with(binding) {
+            lifecycleOwner = viewLifecycleOwner
+            test.text = args.company.name
 
-
-
-        binding.toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
+            toolbar.setNavigationOnClickListener {
+                findNavController().navigateUp()
+            }
         }
 
         setHasOptionsMenu(true)

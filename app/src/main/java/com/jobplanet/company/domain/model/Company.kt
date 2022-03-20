@@ -1,9 +1,11 @@
 package com.jobplanet.company.domain.model
 
-import androidx.annotation.LayoutRes
-import com.google.gson.annotations.Expose
+import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import com.jobplanet.company.R
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Company(
     override val cell_type: String,
     val ranking:Int,
@@ -20,5 +22,13 @@ data class Company(
     val review_summary:String,
     val type:String,
     val industry_name:String,
-    val simple_desc:String,
-):Items
+    val simple_desc:String
+):Items, Parcelable {
+
+    companion object {
+        const val layoutId = R.layout.item_company
+    }
+
+    override val layout_id: Int
+        get() = layoutId
+}

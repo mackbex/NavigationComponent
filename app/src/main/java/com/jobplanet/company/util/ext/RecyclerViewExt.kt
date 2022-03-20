@@ -2,6 +2,7 @@ package com.jobplanet.company.util.ext
 
 import android.widget.Toast
 import androidx.databinding.BindingAdapter
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.jobplanet.company.R
 import com.jobplanet.company.data.source.remote.Resource

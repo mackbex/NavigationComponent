@@ -13,4 +13,5 @@ data class SearchResult(
 
 interface Items {
     val cell_type:String
+    val layout_id:Int
 }

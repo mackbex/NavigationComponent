@@ -22,7 +22,7 @@
                 app:contentInsetStartWithNavigation="0dp"
                 app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
                 app:menu="@menu/menu_company_detail"
-                app:title="@string/title_detail" />
+                app:title="@string/title_review" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +35,7 @@
                 android:id="@+id/test"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_detail"
+                android:text="@string/title_review"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -15,7 +15,7 @@ class CompanyInfoRepositoryImpl @Inject constructor(
 
     override suspend fun getCompanyList() = suspendCancellableCoroutine<Resource<SearchResult>> { co ->
         val adapter = RuntimeTypeAdapterFactory
-            .of(Items::class.java, "cell_type")
+            .of(Items::class.java, "cell_type", true)
             .registerSubtype(Company::class.java, "CELL_TYPE_COMPANY")
             .registerSubtype(HorizontalTheme::class.java, "CELL_TYPE_HORIZONTAL_THEME")
             .registerSubtype(Review::class.java, "CELL_TYPE_REVIEW")

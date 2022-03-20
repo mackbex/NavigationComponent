@@ -12,9 +12,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.jobplanet.company.R
 import com.jobplanet.company.data.source.remote.Resource
 import com.jobplanet.company.databinding.FragmentCompanySearchBinding
+import com.jobplanet.company.domain.model.Company
+import com.jobplanet.company.domain.model.Review
 import com.jobplanet.company.util.autoCleared
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -36,7 +39,22 @@ class SearchFragment : Fragment() {
         with(binding) {
             viewModel = this@SearchFragment.viewModel
             lifecycleOwner = viewLifecycleOwner
-            rcSearchResult.adapter = SearchResultAdapter()
+            rcSearchResult.adapter = SearchResultAdapter().apply {
+                setOnItemClickListener { item ->
+                    val direction = when (item) {
+                        is Company -> {
+                            SearchFragmentDirections.actionSearchFragmentToCompanyFragment(item)
+                        }
+                        is Review -> {
+                            SearchFragmentDirections.actionSearchFragmentToReviewFragment(item)
+                        }
+                        else -> null
+                    }
+                    direction?.run {
+                        findNavController().navigate(direction)
+                    }
+                }
+            }
 
             val searchView = toolbar.menu.findItem(R.id.action_search).actionView as SearchView
             searchView.queryHint = getString(R.string.hint_input_company)
@@ -58,6 +76,7 @@ class SearchFragment : Fragment() {
         viewModel.getSearchResult()
         return binding.root
     }
+
 
     private fun initStates() {
         viewLifecycleOwner.lifecycleScope.launch {

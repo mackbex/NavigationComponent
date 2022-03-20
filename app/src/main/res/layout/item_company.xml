@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-          <variable
+
+        <variable
             name="model"
             type="com.jobplanet.company.domain.model.Company" />
     </data>
@@ -12,10 +13,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:paddingStart="@dimen/list_item_cell_margin"
-        android:paddingEnd="@dimen/list_item_cell_margin"
         android:background="?android:selectableItemBackground"
-        >
+        android:paddingStart="@dimen/list_item_cell_margin"
+        android:paddingEnd="@dimen/list_item_cell_margin">
 
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -31,27 +31,23 @@
             app:strokeColor="@color/grey_200"
             app:strokeWidth="2dp" />
 
-        <HorizontalScrollView
-            android:id="@+id/hs_comapany_name"
+
+        <TextView
+            android:id="@+id/tv_company_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/list_item_cell_margin"
             android:layout_marginEnd="@dimen/list_item_cell_margin"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{model.name}"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/img_forward"
             app:layout_constraintStart_toEndOf="@id/logo_path"
-            app:layout_constraintTop_toTopOf="@id/logo_path">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@{model.name}"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                tools:text="Paper CompanyPaper CompanyPaper CompanyPaper CompanyPaper CompanyPaper CompanyPaper CompanyPaper CompanyPaper CompanyPaper CompanyPaper Company" />
-        </HorizontalScrollView>
+            app:layout_constraintTop_toTopOf="@id/logo_path"
+            tools:text="Paper CompanyPaper CompanyPaper CompanyPaper CompanyPaper CompanyPaper CompanyPaper CompanyPaper CompanyPaper CompanyPaper CompanyPaper Company" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_rate"
@@ -60,8 +56,8 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/bg_rate_total_avg"
             app:layout_constraintBottom_toBottomOf="@id/logo_path"
-            app:layout_constraintStart_toStartOf="@id/hs_comapany_name"
-            app:layout_constraintTop_toBottomOf="@id/hs_comapany_name">
+            app:layout_constraintStart_toStartOf="@id/tv_company_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_company_name">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/img_rate"
@@ -92,11 +88,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/list_item_industry_margin"
+            android:text="@{model.industry_name}"
             android:textColor="?android:textColorSecondary"
             app:layout_constraintBottom_toBottomOf="@id/layout_rate"
             app:layout_constraintStart_toEndOf="@id/layout_rate"
             app:layout_constraintTop_toTopOf="@id/layout_rate"
-            android:text="@{model.industry_name}"
             tools:text="제조/화학"
 
             />
@@ -111,9 +107,9 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
-            android:theme="@style/Theme.CompanySearch.UnderLineView"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:theme="@style/Theme.CompanySearch.UnderLineView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

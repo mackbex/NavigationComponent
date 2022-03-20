@@ -1,5 +1,11 @@
 package com.jobplanet.company.domain.model
 
+import android.os.Parcelable
+import com.jobplanet.company.R
+import kotlinx.parcelize.Parcelize
+
+
+@Parcelize
 data class Review(
     override val cell_type: String,
     val ranking:Int,
@@ -18,4 +24,10 @@ data class Review(
     val type:String,
     val industry_name:String,
     val simple_desc:String,
-):Items
+):Items, Parcelable {
+    companion object {
+        const val layoutId = R.layout.item_review
+    }
+    override val layout_id: Int
+        get() = layoutId
+}
