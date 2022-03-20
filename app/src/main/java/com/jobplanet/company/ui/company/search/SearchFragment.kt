@@ -16,8 +16,11 @@ import androidx.navigation.fragment.findNavController
 import com.jobplanet.company.R
 import com.jobplanet.company.data.source.remote.Resource
 import com.jobplanet.company.databinding.FragmentCompanySearchBinding
+import com.jobplanet.company.databinding.ItemHorizontalThemeBinding
 import com.jobplanet.company.domain.model.Company
+import com.jobplanet.company.domain.model.HorizontalTheme
 import com.jobplanet.company.domain.model.Review
+import com.jobplanet.company.ui.company.horizontal_theme.HorizontalThemeAdapter
 import com.jobplanet.company.util.autoCleared
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -40,18 +43,22 @@ class SearchFragment : Fragment() {
             viewModel = this@SearchFragment.viewModel
             lifecycleOwner = viewLifecycleOwner
             rcSearchResult.adapter = SearchResultAdapter().apply {
-                setOnItemClickListener { item ->
-                    val direction = when (item) {
+                setPostInterface { item, binding ->
+                    when (item) {
                         is Company -> {
-                            SearchFragmentDirections.actionSearchFragmentToCompanyFragment(item)
+                            binding.root.setOnClickListener {
+                                findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToCompanyFragment(item))
+                            }
                         }
                         is Review -> {
-                            SearchFragmentDirections.actionSearchFragmentToReviewFragment(item)
+                            binding.root.setOnClickListener {
+                                findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToReviewFragment(item))
+                            }
+                        }
+                        is HorizontalTheme -> {
+                            (binding as ItemHorizontalThemeBinding).rcHorizontalTheme.adapter = HorizontalThemeAdapter()
                         }
                         else -> null
-                    }
-                    direction?.run {
-                        findNavController().navigate(direction)
                     }
                 }
             }

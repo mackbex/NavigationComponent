@@ -17,15 +17,14 @@ import com.jobplanet.company.domain.model.*
 import java.lang.IllegalStateException
 
 class SearchResultAdapter : ListAdapter<Items, SearchResultAdapter.ViewHolder>(ItemDiffCallback()) {
-    private var listener: ((item:Items) -> Unit)? = null
+    private var listener: ((item:Items, binding:ViewDataBinding) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding:ViewDataBinding = DataBindingUtil.inflate(
+        return ViewHolder(DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
             viewType,
             parent,
-            false)
-        return ViewHolder(binding)
+            false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -36,7 +35,7 @@ class SearchResultAdapter : ListAdapter<Items, SearchResultAdapter.ViewHolder>(I
         return currentList[position].layout_id
     }
 
-    fun setOnItemClickListener(listener: ((item:Items) -> Unit)?) {
+    fun setPostInterface(listener: ((item:Items,binding:ViewDataBinding) -> Unit)?) {
         this.listener = listener
     }
 
@@ -45,9 +44,7 @@ class SearchResultAdapter : ListAdapter<Items, SearchResultAdapter.ViewHolder>(I
 
         fun bind(item:Items, view: View) {
             binding.setVariable(BR.model, item)
-                view.setOnClickListener {
-                    listener?.invoke(item)
-                }
+            listener?.invoke(item, binding)
 
             binding.executePendingBindings()
         }

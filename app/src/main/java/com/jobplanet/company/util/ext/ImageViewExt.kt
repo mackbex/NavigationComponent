@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.ColorFilter
 import android.graphics.PorterDuff
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -17,7 +18,46 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.jobplanet.company.R
+import com.jobplanet.company.domain.model.Theme
 
+
+@BindingAdapter("coverImage")
+fun bindCoverImage(imageView: ImageView, model: Theme?) {
+    val circularProgressDrawable = CircularProgressDrawable(imageView.context).apply {
+        strokeWidth = 5f
+        centerRadius = 30f
+    }
+    circularProgressDrawable.start()
+
+    Glide.with(imageView.context)
+        .load(model?.cover_image)
+        .fitCenter()
+        .error(ColorDrawable(Color.parseColor(model?.color)))
+        .placeholder(circularProgressDrawable)
+        .addListener(object : RequestListener<Drawable> {
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<Drawable>?,
+                isFirstResource: Boolean
+            ): Boolean {
+                circularProgressDrawable.stop()
+                return false
+            }
+
+            override fun onResourceReady(
+                resource: Drawable?,
+                model: Any?,
+                target: Target<Drawable>?,
+                dataSource: DataSource?,
+                isFirstResource: Boolean
+            ): Boolean {
+                circularProgressDrawable.stop()
+                return false
+            }
+        })
+        .into(imageView)
+}
 
 @BindingAdapter("companyLogo")
 fun bindCompanyLogo(imageView: ImageView, logoPath:String?) {
@@ -30,6 +70,7 @@ fun bindCompanyLogo(imageView: ImageView, logoPath:String?) {
 
     Glide.with(imageView.context)
         .load(logoPath)
+        .fitCenter()
         .placeholder(circularProgressDrawable)
         .error(R.drawable.logo_failed)
         .addListener(object : RequestListener<Drawable> {
@@ -54,6 +95,5 @@ fun bindCompanyLogo(imageView: ImageView, logoPath:String?) {
                 return false
             }
         })
-        .apply(RequestOptions().override(imageView.width, imageView.height).fitCenter())
         .into(imageView)
 }

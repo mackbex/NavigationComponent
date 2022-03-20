@@ -1,63 +1,62 @@
-package com.jobplanet.company.ui.company.search
+package com.jobplanet.company.ui.company.horizontal_theme
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.jobplanet.company.R
+import com.jobplanet.company.databinding.ItemHorizontalThemeBinding
+import com.jobplanet.company.databinding.ItemHorizontalThemeCardviewBinding
 import com.jobplanet.company.domain.model.*
-import java.lang.IllegalStateException
 
-class HorizontalThemeAdapter : ListAdapter<Items, HorizontalThemeAdapter.ViewHolder>(ItemDiffCallback()) {
+class HorizontalThemeAdapter : ListAdapter<Theme, HorizontalThemeAdapter.ViewHolder>(
+    ItemDiffCallback()
+) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding:ViewDataBinding = DataBindingUtil.inflate(
+        return ViewHolder(DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
-            viewType,
+            R.layout.item_horizontal_theme_cardview,
             parent,
-            false)
-        return ViewHolder(binding)
+            false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return when(currentList[position]) {
-            is Company -> R.layout.item_company
-            is Review -> R.layout.item_review
-            is HorizontalTheme -> R.layout.item_horizontal_theme
-            else -> throw IllegalStateException("No registered layout.")
-        }
-    }
 
-    inner class ViewHolder(private val binding: ViewDataBinding):
+    inner class ViewHolder(private val binding: ItemHorizontalThemeCardviewBinding):
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item:Items) {
+        init {
+            binding.setClickListener { view ->
+                Toast.makeText(view.context, binding.model?.title, Toast.LENGTH_SHORT).show()
+            }
+        }
+        fun bind(item:Theme) {
             binding.setVariable(BR.model, item)
             binding.executePendingBindings()
         }
     }
 
 
-    private class ItemDiffCallback : DiffUtil.ItemCallback<Items>() {
+    private class ItemDiffCallback : DiffUtil.ItemCallback<Theme>() {
 
         override fun areItemsTheSame(
-            oldItem: Items,
-            newItem: Items
+            oldItem: Theme,
+            newItem: Theme
         ): Boolean {
             return oldItem == newItem
         }
 
         override fun areContentsTheSame(
-            oldItem: Items,
-            newItem: Items
+            oldItem: Theme,
+            newItem: Theme
         ): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }

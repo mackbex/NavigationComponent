@@ -17,7 +17,7 @@ data class Review(
     val pros:String,
     val company_id:Int,
     val occupation_name:String,
-    val rate_total_avg:Float,
+    val rate_total_avg:String,
     val industry_id:Int,
     val date:String,
     val review_summary:String,

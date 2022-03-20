@@ -12,7 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="@dimen/list_item_height"
         android:background="?android:selectableItemBackground"
         android:paddingStart="@dimen/list_item_cell_margin"
         android:paddingEnd="@dimen/list_item_cell_margin">
@@ -22,7 +22,6 @@
             android:id="@+id/logo_path"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:scaleType="fitCenter"
             app:companyLogo="@{model.logo_path}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +62,7 @@
                 android:id="@+id/img_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/list_item_rate_margin"
+                android:layout_marginStart="@dimen/item_rate_margin"
                 android:src="@drawable/ic_baseline_star_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -72,9 +71,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/list_item_rate_margin"
-                android:layout_marginEnd="@dimen/list_item_rate_margin"
-                android:text="@{String.valueOf(model.rate_total_avg)}"
+                android:layout_marginStart="@dimen/item_rate_margin"
+                android:layout_marginEnd="@dimen/item_rate_margin"
+                android:text="@{model.rate_total_avg}"
                 android:textColor="@color/yellow_700"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -87,14 +86,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/list_item_industry_margin"
+            android:layout_marginStart="@dimen/item_industry_margin"
             android:text="@{model.industry_name}"
             android:textColor="?android:textColorSecondary"
             app:layout_constraintBottom_toBottomOf="@id/layout_rate"
             app:layout_constraintStart_toEndOf="@id/layout_rate"
             app:layout_constraintTop_toTopOf="@id/layout_rate"
             tools:text="제조/화학"
-
             />
 
         <ImageView
