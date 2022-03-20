@@ -17,6 +17,7 @@ class CompanyInfoRepositoryImpl @Inject constructor(
      */
     override suspend fun getCompanyList() = suspendCancellableCoroutine<Resource<SearchResult>> { co ->
         CoroutineScope(Dispatchers.IO).launch {
+            delay(10000)
             val response = companySearchService.getCompanyList()
             val result = if(response.isSuccessful) {
                 val list = response.body()
