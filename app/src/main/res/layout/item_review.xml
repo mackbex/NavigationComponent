@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/item_rate_margin_start"
-                android:layout_marginEnd="@dimen/item_rate_margin_start"
+                android:layout_marginEnd="@dimen/item_rate_margin_end"
                 android:text="@{String.valueOf(model.rate_total_avg)}"
                 android:textColor="@color/yellow_700"
                 app:layout_constraintBottom_toBottomOf="parent"
