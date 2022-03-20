@@ -45,7 +45,7 @@
 
         <View
             android:id="@+id/layout_rate"
-            android:layout_width="70dp"
+            android:layout_width="76dp"
             android:layout_height="24dp"
             android:layout_marginTop="8dp"
             android:background="@color/shimmer_color"

@@ -1,6 +1,8 @@
 package com.jobplanet.company.ui.company.search
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -42,7 +44,6 @@ class SearchFragment : Fragment() {
             viewModel = this@SearchFragment.viewModel
             lifecycleOwner = viewLifecycleOwner
             rcSearchResult.adapter = SearchResultAdapter().apply {
-
                 /**
                  * Item list 불러 온 후, 추가작업 (예 : 기업 상세 fragment로 이동 or Horizontal listview 어뎁터 설정 등) 담당
                  */
@@ -50,11 +51,13 @@ class SearchFragment : Fragment() {
                     when (item) {
                         is Company -> {
                             binding.root.setOnClickListener {
+                                resetSearchView()
                                 findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToCompanyFragment(item))
                             }
                         }
                         is Review -> {
                             binding.root.setOnClickListener {
+                                resetSearchView()
                                 findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToReviewFragment(item))
                             }
                         }
@@ -79,18 +82,30 @@ class SearchFragment : Fragment() {
      * Appbar에 결과 내 재검색 기능 담당
      */
     private fun setSearchFeature() {
-        val searchView = binding.toolbar.menu.findItem(R.id.action_search).actionView as SearchView
-        searchView.queryHint = getString(R.string.hint_input_company)
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextChange(newText: String?): Boolean {
-                (binding.rcSearchResult.adapter as SearchResultAdapter).submitList(viewModel.filterCompanyList(newText))
-                return true
-            }
+        (binding.toolbar.menu.findItem(R.id.action_search).actionView as SearchView).apply {
+            queryHint = getString(R.string.hint_input_company)
 
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
-        })
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    (binding.rcSearchResult.adapter as SearchResultAdapter).submitList(viewModel.filterCompanyList(newText)) {
+                        binding.rcSearchResult.scrollToPosition(0)
+                    }
+                    return true
+                }
+
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
+                }
+            })
+        }
+    }
+
+
+    private fun resetSearchView() {
+        (binding.toolbar.menu.findItem(R.id.action_search).actionView as SearchView).apply {
+            setQuery("",false)
+            isIconified = true
+        }
     }
 
     /**
