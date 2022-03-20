@@ -36,12 +36,12 @@
     <style name="Theme.CompanySearch.UnderLineView" parent="Theme.CompanySearch">
         <item name="android:background">@color/grey_800</item>
     </style>
-    <style name="Theme.Detail" parent="Theme.CompanySearch">
-        <item name="background">@color/grey_900</item>
+    <style name="Theme.Layout.Detail.BG" parent="Theme.CompanySearch">
+        <item name="android:background">@color/black</item>
     </style>
 
     <style name="Theme.Layout.Detail.Main" parent="Theme.CompanySearch">
-        <item name="background">@color/grey_700</item>
+        <item name="android:background">@color/grey_900</item>
     </style>
 
 </resources>
