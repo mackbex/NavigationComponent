@@ -1,12 +1,8 @@
 package com.jobplanet.company.ui.company.search
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -14,12 +10,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.jobplanet.company.R
-import com.jobplanet.company.data.source.remote.Resource
+import com.jobplanet.company.util.Resource
 import com.jobplanet.company.databinding.FragmentCompanySearchBinding
 import com.jobplanet.company.databinding.ItemHorizontalThemeBinding
 import com.jobplanet.company.domain.model.Company
 import com.jobplanet.company.domain.model.HorizontalTheme
-import com.jobplanet.company.domain.model.Items
 import com.jobplanet.company.domain.model.Review
 import com.jobplanet.company.ui.company.horizontal_theme.HorizontalThemeAdapter
 import com.jobplanet.company.util.autoCleared
@@ -78,31 +73,7 @@ class SearchFragment : Fragment() {
         searchView.queryHint = getString(R.string.hint_input_company)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
-                with(viewModel.companyListState.value) {
-                    when(this) {
-                        is Resource.Success -> {
-                            val filtered = this.data.items.filter { item ->
-                                when(item) {
-                                    is Company -> {
-                                        newText?.let {
-                                            item.name.contains(it)
-                                        } ?: run { true }
-                                    }
-                                    is Review -> {
-                                        newText?.let {
-                                            item.name.contains(it)
-                                        } ?: run { true }
-                                    }
-                                    else -> true
-                                }
-                            }
-
-                            (binding.rcSearchResult.adapter as SearchResultAdapter).submitList(filtered)
-                        }
-                        else -> false
-                    }
-                }
-
+                (binding.rcSearchResult.adapter as SearchResultAdapter).submitList(viewModel.filterCompanyList(newText))
                 return true
             }
 

@@ -9,7 +9,7 @@
 
         <import type="com.jobplanet.company.domain.model.SearchResult" />
 
-        <import type="com.jobplanet.company.data.source.remote.Resource" />
+        <import type="com.jobplanet.company.util.Resource" />
 
         <variable
             name="viewModel"

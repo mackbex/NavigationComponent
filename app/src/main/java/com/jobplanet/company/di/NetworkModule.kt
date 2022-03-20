@@ -1,5 +1,14 @@
 package com.jobplanet.company.di
 
+import com.google.gson.GsonBuilder
+import com.jobplanet.company.BuildConfig
+import com.jobplanet.company.data.source.remote.NetConstants
+import com.jobplanet.company.data.source.remote.service.CompanySearchService
+import com.jobplanet.company.domain.model.Company
+import com.jobplanet.company.domain.model.HorizontalTheme
+import com.jobplanet.company.domain.model.Items
+import com.jobplanet.company.domain.model.Review
+import com.jobplanet.company.util.RuntimeTypeAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,38 +21,57 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
+    @Provides
+    fun provideBaseUrl() = NetConstants.BASE_URL_V1
+
     @Singleton
     @Provides
     fun provideOkHttpClient() : OkHttpClient {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = Level.BODY
-
-        return OkHttpClient.Builder()
+        val client = OkHttpClient.Builder()
             .readTimeout(10, TimeUnit.SECONDS)
             .connectTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(15, TimeUnit.SECONDS)
-            .addInterceptor(loggingInterceptor)
-            .build()
-    }
 
-    @Singleton
-    @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient, baseUrlV2: String, gsonConverterFactory: GsonConverterFactory) : Retrofit {
-        return Retrofit.Builder()
-            .client(okHttpClient)
-            .baseUrl(baseUrlV2)
-            .addConverterFactory(gsonConverterFactory)
-            .build()
-    }
+        if (BuildConfig.DEBUG) {
+            val logging = HttpLoggingInterceptor()
+            logging.setLevel(Level.BODY)
+            client.addInterceptor(logging)
+        }
 
+        return client.build()
+    }
 
     @Provides
     @Singleton
     fun provideConverterFactory(): GsonConverterFactory {
-        return GsonConverterFactory.create()
+
+        val adapter = RuntimeTypeAdapterFactory
+            .of(Items::class.java, "cell_type", true)
+            .registerSubtype(Company::class.java, "CELL_TYPE_COMPANY")
+            .registerSubtype(HorizontalTheme::class.java, "CELL_TYPE_HORIZONTAL_THEME")
+            .registerSubtype(Review::class.java, "CELL_TYPE_REVIEW")
+
+        return GsonConverterFactory.create(GsonBuilder().registerTypeAdapterFactory(adapter).create())
+    }
+
+    @Singleton
+    @Provides
+    fun provideRetrofit(okHttpClient: OkHttpClient, baseUrl: String, gsonConverterFactory: GsonConverterFactory) : Retrofit {
+        return Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl(baseUrl)
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCompanySearchService(retrofit: Retrofit): CompanySearchService {
+        return retrofit.create(CompanySearchService::class.java)
     }
 }

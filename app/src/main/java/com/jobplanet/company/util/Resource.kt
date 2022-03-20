@@ -1,4 +1,4 @@
-package com.jobplanet.company.data.source.remote
+package com.jobplanet.company.util
 
 sealed class Resource<out T> {
     object Loading: Resource<Nothing>()
