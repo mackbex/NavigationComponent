@@ -35,4 +35,13 @@
     <style name="Theme.CompanySearch.UnderLineView" parent="Theme.CompanySearch">
         <item name="android:background">@color/grey_200</item>
     </style>
+
+    <style name="Review.Pros" parent="Theme.CompanySearch">
+        <item name="android:textColor">@color/light_blue_500</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="Review.Cons" parent="Theme.CompanySearch">
+        <item name="android:textColor">@color/red_700</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>

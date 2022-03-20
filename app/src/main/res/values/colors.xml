@@ -20,4 +20,8 @@
     <color name="green_700">#388E3C</color>
     <color name="shimmer_color">#C2C2C2</color>
     <color name="blue_grey_50">#ECEFF1</color>
+    <color name="light_blue_500">#03A9F4</color>
+    <color name="light_blue_300">#4FC3F7</color>
+    <color name="red_700">#D32F2F</color>
+    <color name="red_500">#F44336</color>
 </resources>

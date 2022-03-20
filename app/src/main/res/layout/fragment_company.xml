@@ -8,6 +8,7 @@
         <variable
             name="model"
             type="com.jobplanet.company.domain.model.Company" />
+
         <variable
             name="viewModel"
             type="com.jobplanet.company.ui.company.company.CompanyViewModel" />
@@ -29,7 +30,7 @@
                 android:layout_height="?attr/actionBarSize"
                 app:contentInsetStartWithNavigation="0dp"
                 app:layout_collapseMode="pin"
-                app:menu="@menu/menu_company_detail"
+                app:menu="@menu/menu_company"
                 app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
                 app:title="@string/title_company"
                 app:titleTextColor="?attr/colorOnSurface" />
@@ -250,11 +251,11 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
                                     android:text="@{model.interview_question}"
-                                    tools:text="1차) 자기소개와 함께 지원하신 동기 말씀해주세요.\n와이어링 설계에서 무엇이 중요하다고 생각하나\n\n그외 이력서 특이사항 질문\n2차) 학교에서 무엇을 배웠나? \n또는 학교에서 무엇을 하였는가?"
                                     android:textColor="?android:textColorSecondary"
                                     android:textSize="18sp"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/tv_title_interview_question"
+                                    tools:text="1차) 자기소개와 함께 지원하신 동기 말씀해주세요.\n와이어링 설계에서 무엇이 중요하다고 생각하나\n\n그외 이력서 특이사항 질문\n2차) 학교에서 무엇을 배웠나? \n또는 학교에서 무엇을 하였는가?"
 
                                     />
                             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -281,11 +282,10 @@
                                 style="?attr/borderlessButtonStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:onClick="@{() -> viewModel.onMoreCompanyInfoClick(model.name)}"
                                 android:text="@string/btn_more_company_info"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                android:onClick="@{() -> viewModel.onMoreCompanyInfoClick(model.name)}"
-                                />
+                                app:layout_constraintTop_toTopOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.core.widget.NestedScrollView>

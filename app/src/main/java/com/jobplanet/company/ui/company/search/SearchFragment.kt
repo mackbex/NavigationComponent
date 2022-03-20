@@ -19,6 +19,7 @@ import com.jobplanet.company.databinding.FragmentCompanySearchBinding
 import com.jobplanet.company.databinding.ItemHorizontalThemeBinding
 import com.jobplanet.company.domain.model.Company
 import com.jobplanet.company.domain.model.HorizontalTheme
+import com.jobplanet.company.domain.model.Items
 import com.jobplanet.company.domain.model.Review
 import com.jobplanet.company.ui.company.horizontal_theme.HorizontalThemeAdapter
 import com.jobplanet.company.util.autoCleared
@@ -62,21 +63,9 @@ class SearchFragment : Fragment() {
                     }
                 }
             }
-
-            val searchView = toolbar.menu.findItem(R.id.action_search).actionView as SearchView
-            searchView.queryHint = getString(R.string.hint_input_company)
-            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    Log.d("test","$newText")
-                    return true
-                }
-
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    return false
-                }
-            })
         }
 
+        setSearchFeature()
         initStates()
         setHasOptionsMenu(true)
 
@@ -84,6 +73,44 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
+    private fun setSearchFeature() {
+        val searchView = binding.toolbar.menu.findItem(R.id.action_search).actionView as SearchView
+        searchView.queryHint = getString(R.string.hint_input_company)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(newText: String?): Boolean {
+                with(viewModel.companyListState.value) {
+                    when(this) {
+                        is Resource.Success -> {
+                            val filtered = this.data.items.filter { item ->
+                                when(item) {
+                                    is Company -> {
+                                        newText?.let {
+                                            item.name.contains(it)
+                                        } ?: run { true }
+                                    }
+                                    is Review -> {
+                                        newText?.let {
+                                            item.name.contains(it)
+                                        } ?: run { true }
+                                    }
+                                    else -> true
+                                }
+                            }
+
+                            (binding.rcSearchResult.adapter as SearchResultAdapter).submitList(filtered)
+                        }
+                        else -> false
+                    }
+                }
+
+                return true
+            }
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+        })
+    }
 
     private fun initStates() {
         viewLifecycleOwner.lifecycleScope.launch {

@@ -92,8 +92,16 @@
             app:layout_constraintBottom_toBottomOf="@id/layout_rate"
             app:layout_constraintStart_toEndOf="@id/layout_rate"
             app:layout_constraintTop_toTopOf="@id/layout_rate"
-            tools:text="제조/화학"
-            />
+            tools:text="제조/화학" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.2"
+            android:text="@string/title_company"
+            app:layout_constraintBottom_toBottomOf="@id/img_forward"
+            app:layout_constraintEnd_toStartOf="@id/img_forward"
+            app:layout_constraintTop_toTopOf="@id/img_forward" />
 
         <ImageView
             android:id="@+id/img_forward"
