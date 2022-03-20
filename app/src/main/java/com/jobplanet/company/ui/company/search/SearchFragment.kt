@@ -52,7 +52,7 @@ class SearchFragment : Fragment() {
                         is Company -> {
                             binding.root.setOnClickListener {
                                 resetSearchView()
-                                findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToCompanyFragment(item))
+                                 findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToCompanyFragment(item))
                             }
                         }
                         is Review -> {
