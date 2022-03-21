@@ -15,17 +15,15 @@ class CompanyInfoRepositoryImpl @Inject constructor(
     /**
      * 서버로부터 기업정보 리스트 받아옴
      */
-    override suspend fun getCompanyList() = suspendCancellableCoroutine<Resource<SearchResult>> { co ->
-        CoroutineScope(Dispatchers.IO).launch {
-             val response = companySearchService.getCompanyList()
-            val result = if(response.isSuccessful) {
-                val list = response.body()
-                Resource.Success<SearchResult>(list ?: run {SearchResult()})
-            }
-            else {
-                Resource.Failure(response.message())
-            }
-            co.resume(result)
+    override suspend fun getCompanyList() = withContext(Dispatchers.IO) {
+        val response = companySearchService.getCompanyList()
+        val result = if(response.isSuccessful) {
+            val list = response.body()
+            Resource.Success<SearchResult>(list ?: run {SearchResult()})
         }
+        else {
+            Resource.Failure(response.message())
+        }
+        result
     }
 }
